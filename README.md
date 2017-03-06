@@ -147,35 +147,35 @@ and 6% odds that it was a yield sign. These other possibilities are very
 different signs, at least to my eye, so I don't understand how the model could be confused about
 this.
 
-  30kph:
+30kph:
   *  94.96%  Speed limit (30km/h)
   *   0.90%  Go straight or left
   *   0.71%  Speed limit (20km/h)
   *   0.68%  Speed limit (80km/h)
   *   0.47%  Speed limit (50km/h)
 
-  keep-right:
+keep-right:
   *  95.18%  Keep right
   *   0.67%  Turn left ahead
   *   0.61%  End of no passing
   *   0.57%  Dangerous curve to the right
   *   0.50%  Go straight or right
 
-  children-crossing:
+children-crossing:
   *  83.63%  Children crossing
   *   4.31%  Bicycles crossing
   *   2.42%  Speed limit (60km/h)
   *   1.94%  Speed limit (120km/h)
   *   1.18%  Right-of-way at the next intersection
 
-  roundabout:
+roundabout:
   *  95.58%  Roundabout mandatory
   *   0.47%  Priority road
   *   0.46%  Keep left
   *   0.46%  Speed limit (100km/h)
   *   0.42%  End of no passing by vehicles over 3.5 metric tons
 
-  stop:
+stop:
   *  69.15%  Stop
   *   8.44%  Bicycles crossing
   *   6.19%  Yield

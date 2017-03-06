@@ -38,7 +38,7 @@ just looked like black squares rather than pictures of signs. I would need
 to correct for the poor lighting as a preprocessing step.
 (See "Exploratory Visualization" in the notebook.)
 
-[![examples of training data](https://raw.githubusercontent.com/ericlavigne/CarND-Traffic-Sign-Classifier-Project/master/figures/sign-examples.png)]
+![examples of training data](https://raw.githubusercontent.com/ericlavigne/CarND-Traffic-Sign-Classifier-Project/master/figures/sign-examples.png)
 
 Pre-processing
 ---
@@ -58,7 +58,7 @@ decided to include both with 6-channel input images.
 
 The results of both transformation approaches are shown below.
 
-[![examples of pre-processed training data](https://raw.githubusercontent.com/ericlavigne/CarND-Traffic-Sign-Classifier-Project/master/figures/preprocessing.png)]
+![examples of pre-processed training data](https://raw.githubusercontent.com/ericlavigne/CarND-Traffic-Sign-Classifier-Project/master/figures/preprocessing.png)
 
 Model Architecture
 ---
@@ -126,7 +126,7 @@ this, I was surprised to find that the network correctly classified only 4 out
 of 5 signs, much worse than the 96% accuracy that the network achieved on the
 much more challenging data set from Udacity.
 
-[![5 downloaded German traffic signs](https://raw.githubusercontent.com/ericlavigne/CarND-Traffic-Sign-Classifier-Project/master/figures/downloaded.png)]
+![5 downloaded German traffic signs](https://raw.githubusercontent.com/ericlavigne/CarND-Traffic-Sign-Classifier-Project/master/figures/downloaded.png)
 
 The network correctly identified 4 of the signs with high confidence:
 speed limit 30 km/h (98%), keep right (98%), children crossing (90%),

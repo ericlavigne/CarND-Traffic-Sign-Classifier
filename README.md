@@ -32,6 +32,13 @@ labels, indicating the type of sign. There were 43 types of signs, such as
 test data sets contained 34799, 4410, and 12630 images respectively.
 (See "Provide a Basic Summary" in the notebook.)
 
+I also found that the different types of signs had very different frequencies in
+the training set. There were only 180 "speed limit 20km/h" signs but 2010
+"speed limit 50km/h" signs, for example. This gives the network a strong incentive
+to learn the most frequently occurring sign types first and have difficulty
+learning the less frequent sign types later. I would need to address this
+issue later by balancing out the sign type frequencies.
+
 Upon visualizing one of each type of sign from the training set, I was
 surprised to find that many of the images were very dim and/or blurry. Some
 just looked like black squares rather than pictures of signs. I would need
@@ -68,6 +75,13 @@ normalization, 50% dropout, and tanh activation. All dense layers, including
 the output layer, used 0.01 L2 regularization. I used the Adam optimizer to
 avoid tuning the learning rate.
 
+The different types of signs had very different frequencies in the training
+data set, so these frequencies needed to be balanced out during training so
+that the model could learn the less frequent sign types. I added a
+normalize_frequencies option to my sample_generator class so that I could
+easily balance out the sign types during training. I turned this option on
+during training but off during evaluation.
+
 Neural network architecture tends to be a tradeoff between training set
 accuracy, generalization (fitting one training set leads to accurate predictions
 on a second training set), and training speed. With access to a powerful GPU, I
@@ -84,13 +98,13 @@ needed to be at least twice as large as the output layer to make up for the
 50% dropout (half of all neurons would randomly be pulled out during training), 
 and I increased that by another 50% to err on the side of high accuracy. I
 also let the model train thoroughly: 200 epochs with 10000 samples per epoch.
-The final training accuracy was 98%.
+The final training accuracy was 99.6%.
 
 For generalization, I added 50% dropout to every layer, except the output
 layer where it wouldn't make sense. I also added L2 normalization to the
 dense layers. The 50% dropout, especially, represented an extreme amount of
 regularization to prevent overfitting to the training data. The final accuracy
-on the test set was 96%.
+on the validation and test sets were 98.7% and 95.9%, respectively.
 
 Despite the large network and heavy regularization, GPU accelleration allowed
 training to complete in just 17 minutes.
@@ -121,25 +135,55 @@ Testing the Model on New Images
 
 I downloaded five additional German traffic sign images to further test the network.
 These are all high-quality images with good lighting, high resolution, and no
-obstructions. In other words, these should be very easy to classify. Despite 
-this, I was surprised to find that the network correctly classified only 4 out
-of 5 signs, much worse than the 96% accuracy that the network achieved on the
-much more challenging data set from Udacity.
+obstructions. In other words, these should be very easy to classify. As
+expected, the model classified all five signs correctly (100% accuracy).
 
 ![5 downloaded German traffic signs](https://raw.githubusercontent.com/ericlavigne/CarND-Traffic-Sign-Classifier-Project/master/figures/downloaded.png)
 
-The network correctly identified 4 of the signs with high confidence:
-speed limit 30 km/h (98%), keep right (98%), children crossing (90%),
-and roundabout (86%). However,
-the network was uncertain about the stop sign. It predicted 68% odds that this
-was a yield sign and only 10% odds that it was a stop sign. It even offered 
-"speed limit 30 km/h" as a third guess with odds of 9%. These sign types are
-not similar at all to my eye, and I am confused as to how a network that works
-so well on average could make this mistake on what looks like an easy image
-to classify.
+Despite the perfect accuracy score, I note that the model was very uncertain
+about the classification of the stop sign. It estimated only 69% certainty
+that this was a stop sign, 8% odds that it was a bicycles crossing sign,
+and 6% odds that it was a yield sign. These other possibilities are very
+different signs, at least to my eye, so I don't understand how the model could be confused about
+this.
 
-### Installation
+  30kph:
+  *  94.96%  Speed limit (30km/h)
+  *   0.90%  Go straight or left
+  *   0.71%  Speed limit (20km/h)
+  *   0.68%  Speed limit (80km/h)
+  *   0.47%  Speed limit (50km/h)
 
+  keep-right:
+  *  95.18%  Keep right
+  *   0.67%  Turn left ahead
+  *   0.61%  End of no passing
+  *   0.57%  Dangerous curve to the right
+  *   0.50%  Go straight or right
+
+  children-crossing:
+  *  83.63%  Children crossing
+  *   4.31%  Bicycles crossing
+  *   2.42%  Speed limit (60km/h)
+  *   1.94%  Speed limit (120km/h)
+  *   1.18%  Right-of-way at the next intersection
+
+  roundabout:
+  *  95.58%  Roundabout mandatory
+  *   0.47%  Priority road
+  *   0.46%  Keep left
+  *   0.46%  Speed limit (100km/h)
+  *   0.42%  End of no passing by vehicles over 3.5 metric tons
+
+  stop:
+  *  69.15%  Stop
+  *   8.44%  Bicycles crossing
+  *   6.19%  Yield
+  *   2.58%  Speed limit (80km/h)
+  *   1.82%  Dangerous curve to the right
+
+Installation
+---
 
 1. Clone the repository
 
@@ -159,7 +203,8 @@ pip install -r requirements.txt
 deactivate
 ```
 
-### Running the project
+Running the project
+---
 
 ```sh
 cd CarND-Traffic-Sign-Classifier-Project
@@ -168,7 +213,8 @@ jupyter notebook Traffic_Sign_Classifier.ipynb
 deactivate
 ```
 
-### Installing new library
+Installing new library
+---
 
 ```sh
 cd CarND-Traffic-Sign-Classifier-Project
